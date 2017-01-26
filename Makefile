@@ -73,8 +73,10 @@ VPATH =		mbedtls/library
 SRC_TXT =	$(OBJS_CRYPTO:.o=.c) \
 		$(OBJS_X509:.o=.c) \
 		$(OBJS_TLS:.o=.c)
+SRC_TXT +=	threading_alt.c \
+		timing_alt.c
 
-SRC_HDR =	mbedtls/include/mbedtls/config.h
+SRC_HDR =	mbedtls/include/mbedtls/config.h timing_alt.h threading_alt.h
 SRC_OBJ =
 CDEFINES += 	MBEDTLS_CONFIG_FILE='<mbedtls-cfg.h>'
 
