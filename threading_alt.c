@@ -43,7 +43,7 @@ static void mutexInit(mbedtls_threading_mutex_t *mutex)
   if (mutex == NULL || mutex->valid)
     return;
 
-  mutex->mutex = posMutexCreate();
+  mutex->mutex = nosMutexCreate(0, "tls*");
   mutex->valid = mutex->mutex != NULL;
 }
 
@@ -52,7 +52,7 @@ static void mutexFree(mbedtls_threading_mutex_t *mutex)
   if (mutex == NULL || !mutex->valid)
     return;
 
-  posMutexDestroy(mutex->mutex);
+  nosMutexDestroy(mutex->mutex);
   mutex->valid = 0;
 }
 
@@ -61,7 +61,7 @@ static int mutexLock(mbedtls_threading_mutex_t *mutex)
   if (mutex == NULL || ! mutex->valid)
       return MBEDTLS_ERR_THREADING_BAD_INPUT_DATA;
 
-  posMutexLock(mutex->mutex);
+  nosMutexLock(mutex->mutex);
   return 0;
 }
 
@@ -70,7 +70,7 @@ static int mutexUnlock(mbedtls_threading_mutex_t *mutex)
   if (mutex == NULL || ! mutex->valid)
     return MBEDTLS_ERR_THREADING_BAD_INPUT_DATA;
 
-  posMutexUnlock(mutex->mutex);
+  nosMutexUnlock(mutex->mutex);
   return 0;
 }
 
